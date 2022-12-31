@@ -15,12 +15,12 @@ fn main() {
 
     match &cli.dispatcher {
         DispatcherCommands::Find {
-            rpc_url,
+            etherscan_api,
             contract_address,
         } => {
             println!(
-                "Rpc url provided {} , Contract Address {}",
-                rpc_url, contract_address
+                "Etherscan api provided {} , Contract Address {}",
+                etherscan_api, contract_address
             )
         }
     }
