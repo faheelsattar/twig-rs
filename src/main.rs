@@ -1,8 +1,5 @@
-use std::str::FromStr;
-
-use clap::Parser;
-use ethers::types::Bytes;
 use twig_rs::{contract::Contract, query, sub};
+use clap::Parser;
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
