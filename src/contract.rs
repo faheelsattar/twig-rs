@@ -10,5 +10,7 @@ impl Contract {
         self
     }
 
-    pub fn get_dispatcher(&self) {}
+    pub fn get_dispatcher(&self) {
+        
+    }
 }

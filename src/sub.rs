@@ -11,6 +11,6 @@ pub enum Commands {
 
         /// Contract address to query
         #[clap(short = 'c', long = "contract-address")]
-        contract_address: Box<str >,
+        contract_address: Box<str>,
     },
 }

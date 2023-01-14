@@ -1,5 +1,5 @@
-use twig_rs::{contract::Contract, query, sub};
 use clap::Parser;
+use twig_rs::{contract::Contract, query, sub};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -29,6 +29,8 @@ fn main() {
                 .unwrap();
 
             let contract = Contract { bytecode };
+
+            contract.get_dispatcher();
         }
     }
 }
