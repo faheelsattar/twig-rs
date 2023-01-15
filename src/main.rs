@@ -29,8 +29,8 @@ fn main() {
                 .unwrap();
 
             let contract = Contract { bytecode };
-
-            contract.get_dispatcher();
+            let pattern: Vec<u8> = vec![0x80, 0x63, 0x14, 0x61, 0x57];
+            contract.extract_dispatcher(pattern);
         }
     }
 }

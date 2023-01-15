@@ -16,7 +16,7 @@ pub async fn get_code(rpc_url: &str, contract_address: &str) -> Result<Bytes, Pr
         .await
     {
         Ok(data) => {
-            println!("Bytecode: {}", data);
+            // println!("Bytecode: {}", data);
             data
         }
         Err(err) => return Err(err),
