@@ -7,14 +7,14 @@ use twig_rs::{contract::Contract, query, sub};
 
 struct Cli {
     #[command(subcommand)]
-    dispatcher: sub::Commands,
+    sub: sub::Commands,
 }
 
 fn main() {
     let cli = Cli::parse();
     let rt = tokio::runtime::Runtime::new().unwrap();
 
-    match &cli.dispatcher {
+    match &cli.sub {
         sub::Commands::Find {
             rpc_url,
             contract_address,
