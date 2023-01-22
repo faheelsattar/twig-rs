@@ -32,5 +32,15 @@ fn main() {
             let pattern: Vec<u8> = vec![0x80, 0x63, 0x14, 0x61, 0x57];
             contract.extract_dispatcher(pattern);
         }
+        sub::Commands::Call {
+            rpc_url,
+            contract_address,
+            function_signature,
+            function_args,
+        } => {
+            for args in function_args.iter() {
+                println!("args  {}", args)
+            }
+        }
     }
 }
