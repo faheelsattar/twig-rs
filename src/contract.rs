@@ -45,11 +45,29 @@ fn parse_function_signature(function_signature: &str) {
 
     let sub_string = &function_signature[index + 1..function_signature.len() - 1];
     let structs = extract_structs(sub_string);
-
-    println!("structs {:?}", structs);
+    let types = extract_normal_types(sub_string, &structs);
+    println!("types {:?}", types);
 }
 
-//extract tuples from the function args
+//by normal i mean all the types that arent structs
+fn extract_normal_types(sub_string: &str, structs: &Vec<&str>) -> Vec<Box<str>> {
+    let mut types: Vec<Box<str>> = Vec::new();
+    let mut new_sub_string = sub_string.to_string();
+
+    if structs.len() > 0 {
+        for data in structs.iter() {
+            //_ represents vanity for the struct type to be later replaced with
+            new_sub_string = new_sub_string.replace(data, "_");
+        }
+    }
+
+    for data in new_sub_string.split(",") {
+        types.push(Box::from(data));
+    }
+    types
+}
+
+//extract structs from the function args
 fn extract_structs(sub_string: &str) -> Vec<&str> {
     let mut open_total = 0;
     let mut open_index = 0;
