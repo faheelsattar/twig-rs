@@ -44,15 +44,19 @@ fn parse_function_signature(function_signature: &str) {
         .expect("FUNCTION_SIGNATURE_ERROR");
 
     let sub_string = &function_signature[index + 1..function_signature.len() - 1];
-    extract_tuples(sub_string);
+    let structs = extract_structs(sub_string);
+
+    println!("structs {:?}", structs);
 }
 
 //extract tuples from the function args
-fn extract_tuples(sub_string: &str) {
+fn extract_structs(sub_string: &str) -> Vec<&str> {
     let mut open_total = 0;
     let mut open_index = 0;
     let mut close_total = 0;
     let mut i = 0;
+    let mut structs: Vec<&str> = Vec::new();
+
     for character in sub_string.chars() {
         if character == '(' {
             open_total += 1;
@@ -72,12 +76,14 @@ fn extract_tuples(sub_string: &str) {
                 open_total = 0;
                 close_total = 0;
 
-                println!("tuple {}", tuple);
+                structs.push(tuple);
             }
         }
 
         i += 1;
     }
+
+    structs
 }
 
 // Todo: prolly move to some helper file
