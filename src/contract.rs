@@ -1,4 +1,4 @@
-use ethers::types::Bytes;
+use ethers::{types::Bytes, utils::id};
 pub struct Contract {
     pub bytecode: Bytes,
 }
@@ -11,6 +11,72 @@ impl Contract {
 
     pub fn extract_dispatcher(self, pattern: Vec<u8>) {
         search(pattern, self.bytecode);
+    }
+
+    pub fn call(
+        self,
+        contract_address: &str,
+        function_signature: &str,
+        function_args: &Vec<Box<str>>,
+    ) {
+        // TODO
+        // parse the function signature to extracts types.
+        // check if the types are valid evm compatible types.
+        // check if the number of types equal to amount of args sent by the user
+        // formulate/pad the args according to the required function type.
+        // extract the the first 4 bytes of the function signature.
+        // formulate the data field of the TransactionObject with the above data.
+        parse_function_signature(function_signature);
+        let function_id = Bytes::from(id(function_signature).to_vec());
+    }
+}
+
+fn parse_function_signature(function_signature: &str) {
+    // TODO
+    // check for the first "(" in the string and return
+    // check for the last ")"in the string and return
+    // split the remaining string with ","
+    // parse the newString in the custom struct
+    // return the custom struct
+
+    let index = function_signature
+        .find("(")
+        .expect("FUNCTION_SIGNATURE_ERROR");
+
+    let sub_string = &function_signature[index + 1..function_signature.len() - 1];
+    extract_tuples(sub_string);
+}
+
+//extract tuples from the function args
+fn extract_tuples(sub_string: &str) {
+    let mut open_total = 0;
+    let mut open_index = 0;
+    let mut close_total = 0;
+    let mut i = 0;
+    for character in sub_string.chars() {
+        if character == '(' {
+            open_total += 1;
+            if open_total == 1 {
+                open_index = i + 1;
+            }
+        }
+
+        if character == ')' {
+            close_total += 1;
+        }
+
+        if open_total > 0 && close_total > 0 {
+            if open_total == close_total {
+                let tuple = &sub_string[open_index - 1..i + 1];
+
+                open_total = 0;
+                close_total = 0;
+
+                println!("tuple {}", tuple);
+            }
+        }
+
+        i += 1;
     }
 }
 

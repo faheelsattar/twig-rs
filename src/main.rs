@@ -1,5 +1,8 @@
+use std::str::FromStr;
+
 use clap::Parser;
-use twig_rs::{contract::Contract, query, sub};
+use ethers::types::Bytes;
+use twig_rs::{contract::Contract, interaction, sub};
 
 #[derive(Parser)]
 #[command(author, version, about, long_about = None)]
@@ -25,7 +28,7 @@ fn main() {
             );
 
             let bytecode = rt
-                .block_on(query::get_code(rpc_url, contract_address))
+                .block_on(interaction::get_code(rpc_url, contract_address))
                 .unwrap();
 
             let contract = Contract { bytecode };
@@ -38,9 +41,11 @@ fn main() {
             function_signature,
             function_args,
         } => {
-            for args in function_args.iter() {
-                println!("args  {}", args)
-            }
+            let contract = Contract {
+                bytecode: Bytes::from_str("0x00").unwrap(),
+            };
+
+            contract.call(contract_address, function_signature, function_args)
         }
     }
 }

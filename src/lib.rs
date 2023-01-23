@@ -1,4 +1,4 @@
 pub mod sub;
 pub mod contract;
-pub mod query;
+pub mod interaction;
 pub mod evm;
