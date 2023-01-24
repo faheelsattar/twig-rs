@@ -6,6 +6,6 @@ Evm cli tool for interacting and analyzing smart contracts
 ## Features
 1. **Find**: Extracts smart contract dispatcher and list down all the function signatures.
 
-    cli command: twig-rs --rpc-url `https://YOUR_RPC_URL` --contract-address `0xCONTRACT_ADDRESS`
+    cli command: cargo run find --rpc-url `https://YOUR_RPC_URL` --contract-address `0xCONTRACT_ADDRESS`
 
   
